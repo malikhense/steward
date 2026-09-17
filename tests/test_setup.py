@@ -63,6 +63,53 @@ class SetupTests(unittest.TestCase):
         self.assertNotEqual(run(SETUP, '--vault', link, '--apply').returncode, 0)
         self.assertEqual(list(target.iterdir()), [])
 
+    def test_new_memory_contains_navigable_wiki(self):
+        vault = self.root / 'vault'
+        result = run(SETUP, '--vault', vault, '--apply')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for folder in ['Sources', 'Knowledge', 'Current', 'History', 'Deliverables']:
+            self.assertTrue((vault / folder / 'Index.md').is_file(), folder)
+            self.assertIn(folder + '/Index.md', (vault / 'Home.md').read_text())
+        self.assertTrue((vault / 'System/Context.md').is_file())
+
+    def test_adopt_existing_adds_only_missing_files(self):
+        vault = self.root / 'vault'; vault.mkdir()
+        (vault / 'Home.md').write_text('My own home')
+        (vault / 'AGENTS.md').write_text('My own instructions')
+        before = snapshot(vault)
+        preview = run(SETUP, '--vault', vault, '--adopt-existing')
+        self.assertEqual(preview.returncode, 0, preview.stderr)
+        self.assertEqual(before, snapshot(vault))
+        result = run(SETUP, '--vault', vault, '--adopt-existing', '--apply')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for name, data in before.items(): self.assertEqual((vault/name).read_bytes(), data)
+        self.assertTrue((vault / 'Current/Index.md').is_file())
+        self.assertIn('Home.md', json.loads(result.stdout)['preserved'])
+
+    def test_adoption_rejects_nested_symlink_before_writes(self):
+        vault = self.root / 'vault'; vault.mkdir()
+        outside = self.root / 'outside'; outside.mkdir()
+        (vault / 'Knowledge').symlink_to(outside)
+        before = snapshot(vault)
+        self.assertNotEqual(run(SETUP, '--vault', vault, '--adopt-existing', '--apply').returncode, 0)
+        self.assertEqual(before, snapshot(vault))
+        self.assertEqual(list(outside.iterdir()), [])
+
+    def test_legacy_scaffold_upgrade_preserves_all_previous_records(self):
+        vault = self.root / 'vault'; (vault/'System').mkdir(parents=True)
+        files = ['AGENTS.md', 'Home.md', 'System/Session.md']
+        for name in files: (vault/name).write_text('Existing ' + name)
+        (vault/'System/Setup.json').write_text(json.dumps({'schema':1, 'files':sorted(files)}))
+        before = snapshot(vault)
+        result = run(SETUP, '--vault', vault, '--apply')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['state'], 'upgrade')
+        for name, data in before.items(): self.assertEqual((vault/name).read_bytes(), data)
+        self.assertTrue((vault/'Knowledge/Index.md').is_file())
+        after = snapshot(vault)
+        self.assertEqual(run(SETUP, '--vault', vault, '--apply').returncode, 0)
+        self.assertEqual(after, snapshot(vault))
+
     def test_install_preview_then_repeat(self):
         dest = self.root / 'skills'
         self.assertEqual(run(INSTALL, '--dest', dest).returncode, 0)

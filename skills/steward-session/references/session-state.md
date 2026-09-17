@@ -10,6 +10,7 @@ For a new vault, `System/Session.md` can hold the small state below; `Home.md` l
 | Memory | Actual location and mode: plain Markdown, Obsidian-backed Markdown, or no durable store |
 | Onboarding | not-started, in-progress, complete, or skipped; last completed step and next unresolved question |
 | Connections | Link to System/Connections.json or the existing equivalent; per-app choices, scope, verification and pending access remain there |
+| Context review | Link to System/Context.md or equivalent: selected sources, scope, content coverage, observed time, gaps, and tentative proposals |
 | Current work | Links to the selected goal/plan or bounded request; source of truth stays in those records |
 | Next | Concrete next action and whether it belongs to the agent or the user |
 | Pending | Only decisions, missing observations, or access that affect continuation |

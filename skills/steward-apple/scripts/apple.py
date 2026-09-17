@@ -137,12 +137,15 @@ def main():
     p.add_argument('--apply', action='store_true', help='Execute the authorized mutation; default returns a local preview')
     p.add_argument('--build', action='store_true', help='Compile without requesting app access')
     a = p.parse_args()
+    stage = 'prepare'
+    mutation = False
     try:
         if a.build:
             print(json.dumps({'binary': str(build())})); return 0
         r = validate(json.load(sys.stdin))
         if r['op'] in WRITES and not a.apply:
             print(json.dumps({'state': 'preview', 'request': r})); return 0
+        mutation = r['op'] in WRITES and a.apply
         r['apply'] = a.apply
         CACHE.mkdir(parents=True, exist_ok=True)
         native_script = r.get('app') == 'notes'
@@ -152,8 +155,10 @@ def main():
             if native_script:
                 with tempfile.NamedTemporaryFile(mode='w', suffix='.json') as request_file:
                     json.dump(r, request_file); request_file.flush()
+                    stage = 'execute'
                     result = subprocess.run(['/usr/bin/osascript', '-l', 'JavaScript', str(HERE / 'notes.js'), request_file.name], text=True, capture_output=True, timeout=100)
             else:
+                stage = 'execute'
                 result = subprocess.run([str(binary)], input=json.dumps(r), text=True, capture_output=True, timeout=100)
         if result.stdout: print(result.stdout.strip())
         if result.stderr: print(result.stderr.strip(), file=sys.stderr)
@@ -169,7 +174,9 @@ def main():
                 temp.write_text(json.dumps(policy, indent=2)); temp.chmod(0o600); temp.replace(policy_path)
         return 1 if 'error' in payload else 0
     except (ValueError, OSError, subprocess.SubprocessError) as e:
-        print(json.dumps({'error': str(e), 'state': 'failed-or-uncertain', 'recovery': 'Read back the destination before retrying a mutation; do not use a new create token.'}))
+        uncertain = mutation and stage == 'execute'
+        recovery = ('Read back the destination before retrying a mutation; do not use a new create token.' if uncertain else 'Inspect the reported dependency or permission. For compiler/SDK failures, try a supported app-control read route within the selected scope; do not repeat the failed build or claim connection success.')
+        print(json.dumps({'error': str(e), 'stage': stage, 'state': 'failed-or-uncertain' if uncertain else ('not-attempted' if stage == 'prepare' else 'read-failed'), 'recovery': recovery}))
         return 1
 
 

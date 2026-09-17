@@ -5,7 +5,7 @@ description: Use Apple Calendar, Reminders, Notes, Mail, Messages, and supportin
 
 # Apple apps, in ordinary language
 
-Choose a route from [capabilities](references/capabilities.md). Use [the local connector](scripts/apple.py) for its supported Calendar, Reminders, and Notes operations; read `--help` for its JSON interface. For other features, use [native app workflows](references/native-apps.md) with the host's supported computer-control tool. Interface availability is not evidence that an operation succeeded.
+Read [working context](../steward-memory/references/working-context.md). Choose a route from [capabilities](references/capabilities.md). Use [the local connector](scripts/apple.py) for its supported Calendar, Reminders, and Notes operations; read `--help` for its JSON interface. For other features, use [native app workflows](references/native-apps.md) with the host's supported computer-control tool. Interface availability is not evidence that an operation succeeded.
 
 For first connection, a missing private-container policy, or permission failure, read [connection and recovery](references/connection.md). Recover known account and container choices from personal memory. For choosing, resuming, or disconnecting context sources, use [connection onboarding](../steward-session/references/connections.md); honor its saved selections before general context retrieval. This skill owns app access; [schedule](../steward-schedule/SKILL.md) owns time placement, [messages](../steward-messages/SKILL.md) owns correspondence, and [review](../steward-review/SKILL.md) owns progress interpretation. Use existing [action authorization](../steward-admin/references/actions.md).
 

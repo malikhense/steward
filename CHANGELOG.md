@@ -1,5 +1,14 @@
 # Release notes
 
+## 0.3.0: A guided beginning
+
+- First use explains Steward, recommends optional Obsidian, and walks through memory, connections, context review, and one useful result.
+- Memory setup builds a navigable wiki. Existing and older vaults can gain missing files without replacement; existing organization remains authoritative.
+- Selected sources get an initial content review, with recorded coverage and gaps, before priority suggestions. Relevant non-Apple tools are discovered before manual intake.
+- Failed native Calendar/Reminders access can use verified host app control when available. Installed plugins without callable tools receive an honest fallback, not a repeated invocation loop.
+- A shared Steward voice keeps setup, specialist work, and recovery warm and concrete. Suggestions remain proposals, and newer user corrections supersede stale context.
+- Setup, connection fallback, and error-stage regressions plus isolated conversational trials are documented in [onboarding validation](docs/onboarding-validation.md).
+
 ## 0.2.2: One conversation, clear guides
 
 - First public snapshot under MIT, with private development history kept separately.
@@ -26,4 +35,4 @@
 - Versioned plugin archive, managed installation/update receipts, local-edit protection, and recovery backups.
 - Clear installation, first-use, privacy, and validation documentation informed by primary-source product exemplars.
 
-This is a private preview. Optional Apple access requires a compatible Mac and host. No universal Apple feature coverage, background watcher, or error-free guarantee is claimed.
+Early releases are evolving. Optional Apple access requires a compatible Mac and host. No universal Apple feature coverage, background watcher, or error-free guarantee is claimed.

@@ -10,7 +10,7 @@ Keep personal memory and local installation records out of the public or shared 
 
 ## What connecting means
 
-Choosing an app permits relevant, on-demand context use within the agreed scope. Access is verified separately for each app and can fail later if permissions, accounts, or host capabilities change. A saved “verified” record describes the last check; live facts still need fresh reads.
+Choosing an app permits the explained initial review and later relevant context use within the agreed scope. The first review looks for upcoming commitments, open tasks, and recent actionable material; it does not copy whole account histories into the wiki. Review coverage and gaps are saved separately from connection permissions. Access is verified separately for each app and can fail later if permissions, accounts, or host capabilities change. A saved “verified” record describes the last check; live facts still need fresh reads.
 
 Steward defaults to private app writes and treats shared/unknown destinations as read-only. Mac permission may be broader than those chosen destinations. Calendar/Reminders privacy checks use the live app UI and expire after 15 minutes; this does not continuously detect sharing changes. Notes checks exposed sharing flags before writes. These boundaries reduce mistakes, but they are not a security sandbox against arbitrary code or a guarantee of zero errors.
 

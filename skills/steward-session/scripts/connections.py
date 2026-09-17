@@ -90,11 +90,11 @@ def execute(args, value):
             if args.command == 'select':
                 was_selected = entry.get('choice') == 'selected' and entry.get('scope') == args.scope
                 entry.update(choice='selected', context=args.context, scope=args.scope, selectedAt=now())
-                if not was_selected: entry.update(access='unverified', evidence=None, verifiedAt=None, containers=[], next=None)
+                if not was_selected: entry.update(access='unverified', evidence=None, verifiedAt=None, containers=[], next=None, connectorFailure=None)
             else:
                 entry.update(choice='skipped' if args.command == 'skip' else 'disconnected', context=False,
                              access='unverified', evidence=None, verifiedAt=None, scope=None,
-                             containers=[], next=None)
+                             containers=[], next=None, connectorFailure=None)
         return {'state': 'recorded', 'apps': args.apps}
     app = args.app
     entry = apps.get(app, {})
@@ -107,7 +107,7 @@ def execute(args, value):
             result = subprocess.run([sys.executable, str(APPLE)], input=json.dumps({'op': 'connect', 'app': app}),
                                     text=True, capture_output=True, timeout=240)
         except (OSError, subprocess.SubprocessError) as error:
-            entry.update(access='blocked', verifiedAt=None, evidence=None, containers=[], next=str(error))
+            entry.update(access='blocked', verifiedAt=None, evidence=None, containers=[], next=str(error), connectorFailure=str(error))
             return {'state':'blocked', 'app':app, 'next':entry['next']}
         try:
             payload = json.loads(result.stdout)
@@ -115,22 +115,21 @@ def execute(args, value):
             payload = {'error': result.stderr.strip() or 'Connector returned no readable result'}
         if result.returncode or 'containers' not in payload:
             entry.update(access='blocked', verifiedAt=None, evidence=None,
-                         next=payload.get('error', 'Inspect connector access and retry'), containers=[])
+                         next=payload.get('error', 'Inspect connector access and retry'), containers=[],
+                         connectorFailure=payload.get('error', 'Inspect connector access and retry'))
             return {'state': 'blocked', 'app': app, 'next': entry['next']}
         # Container metadata only; never copy event, task, or note content into this register.
         entry.update(access='verified', verifiedAt=now(), route='connector',
-                     evidence='Connector returned actual container discovery', next=None,
+                     evidence='Connector returned actual container discovery', next=None, connectorFailure=None,
                      containers=payload['containers'])
         return {'state': 'verified', 'app': app, 'containers': len(payload['containers']), 'writes': 'not-established-by-this-read'}
     if args.command == 'record-ui':
         if not args.evidence.strip(): raise ValueError('Record a concrete observation')
         if args.access != 'verified' and not args.next: raise ValueError('Blocked/unavailable access needs a concrete next step')
-        if APPS[app][2] == 'connector':
-            raise ValueError('Use probe for Calendar, Reminders, or Notes')
-        entry.update(access=args.access, route=APPS[app][2],
+        entry.update(access=args.access, route='app-control', containers=[],
                      verifiedAt=now() if args.access == 'verified' else None,
                      evidence=args.evidence, next=args.next)
-        return {'state': args.access, 'app': app, 'verification': 'host-observation-recorded'}
+        return {'state': args.access, 'app': app, 'verification': 'host-observation-recorded', 'writes': 'not-established-by-this-read'}
     raise ValueError('Unknown command')
 
 

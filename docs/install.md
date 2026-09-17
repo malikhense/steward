@@ -27,7 +27,7 @@ python3 scripts/install.py --dest /absolute/path/to/your/host/skills
 python3 scripts/install.py --dest /absolute/path/to/your/host/skills --apply
 ```
 
-Resolve the actual skill destination from the host; do not guess another assistant's folder. The first command previews. The second installs and verifies every runtime file. Repeating an identical install is harmless. Local conflicts stop before copying.
+Resolve the actual skill destination from the host; do not guess another agent's folder. The first command previews. The second installs and verifies every runtime file. Repeating an identical install is harmless. Local conflicts stop before copying.
 
 Start a task in your intended personal workspace and say **“Use Steward to get started.”** If the host does not discover the new skill immediately, refresh/restart it according to its instructions.
 
@@ -64,3 +64,13 @@ To remove the suite, use the host's plugin uninstall flow if installed as a plug
 Use `--update` to migrate the managed `kernel-*` skill folders to `steward-*`. The installer verifies the old receipt, backs up the original folders, installs and verifies the new names, then removes only the unchanged old copies. Local edits stop migration for reconciliation. Update any workspace skill pointers to `steward-*`; retain the actual memory vault name and path. Old command names are retired rather than installed as duplicate aliases.
 
 Ready? Continue with [your first conversation](first-use.md) or [everyday use](using-steward.md).
+
+### Updating from 0.2.2 or earlier
+
+Tell your agent:
+
+> Update Steward from https://github.com/malikhense/steward, preserve my existing memory, and resume the guided onboarding. Check the wiki structure, offer my available connections, review the sources I choose, and help me complete one useful thing.
+
+The skill update and your personal wiki are separate. After updating, Steward should inspect the existing vault, add missing navigation where needed, and preserve your notes and connection choices. It should not start a second vault or repeat settled questions. Older three-file scaffolds can be extended by the setup helper. Existing vaults with their own organization should keep it.
+
+A new version cannot grant macOS permissions or expose tools missing from your host. Steward should verify the route available on your machine and guide any remaining step.

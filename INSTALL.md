@@ -29,7 +29,7 @@ Verify every installed runtime file against the release and resolve the sibling 
 
 ## 4. Hand off to the conversation
 
-Read the installed `steward/SKILL.md`. Reuse a known personal workspace or memory folder; the repository is product source, not the user's personal vault. Preserve the vault's name and existing records. If the user requested setup or help getting started, continue the session workflow conversationally from the next unresolved choice. If they only asked to install, finish with a short confirmation and “You can say: Help me get started with Steward.” Do not force a life questionnaire into an install-only request.
+Read the installed `steward/SKILL.md`. Reuse a known personal workspace or memory folder; the repository is product source, not the user's personal vault. Preserve the vault's name and existing records. If the user requested setup or help getting started, continue the session workflow conversationally from the next unresolved choice. If they only asked to install, finish with a short confirmation, one sentence explaining what Steward helps with, and a clear invitation: “Ready to set it up? I’ll walk you through memory, app connections, and one useful first task.” If the host requires a new turn, give the exact starting phrase: “Help me get started with Steward.” Do not force a life questionnaire into an install-only request.
 
 Memory choices, app selection, and permission prompts belong to the relevant onboarding branches. Installing the suite does not select apps, grant access, authorize sends, or create background tasks. Complete independent work while optional access is pending.
 

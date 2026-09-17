@@ -16,7 +16,7 @@ History/        Material decisions, supersession, and change reasons
 Deliverables/   Finished artifacts or links to their canonical locations
 ```
 
-These are folders, not mandatory new domain objects. Create only what the actual task needs. Sources, synthesized knowledge, and current operational state have different jobs; avoid copying each fact into all three. Link the canonical claim into relevant records. Human-owned prose remains intact; patch a designated managed section or propose a conflict resolution when authorship is ambiguous.
+These are folders, not mandatory new domain objects. The onboarding scaffold creates navigable indexes for these categories; create substantive records only from actual work and evidence. Sources, synthesized knowledge, and current operational state have different jobs; avoid copying each fact into all three. Link the canonical claim into relevant records. Human-owned prose remains intact; patch a designated managed section or propose a conflict resolution when authorship is ambiguous.
 
 ## Record what matters
 

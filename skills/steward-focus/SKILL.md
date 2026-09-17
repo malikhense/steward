@@ -13,3 +13,5 @@ Read [working context](../steward-memory/references/working-context.md) first. T
 4. Record a confirmed focus and deferred candidates through [memory](../steward-memory/SKILL.md), keeping suggestions distinct from commitments. If the request includes getting started, continue into [goals](../steward-goals/SKILL.md) or [planning](../steward-plan/SKILL.md) in this task. Completion: the user has either an actionable direction or the smallest meaningful choice needed to select one.
 
 A new area is a record in shared context, not a new skill. Changing focus does not silently pause every existing goal or cancel its live actions.
+
+When proposing a focus, state the coverage that supports it and keep the proposal distinct from the user's chosen priority. A recently visible project is not automatically the most important. Treat the user's newer account as evidence that can supersede stale app content, then review other available context before asking them to recreate their task list. Several concerns call for a brief tradeoff and a choice, not an automatic hierarchy: debt or low funds alone does not establish an emergency or override a chosen health focus.

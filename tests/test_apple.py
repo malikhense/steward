@@ -5,6 +5,8 @@ import subprocess
 import sys
 import unittest
 import uuid
+import io
+from unittest.mock import patch
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'skills/steward-apple/scripts/apple.py'
 spec = importlib.util.spec_from_file_location('apple', SCRIPT)
@@ -55,5 +57,13 @@ class AppleTests(unittest.TestCase):
     def test_all_day_and_bounded_query(self):
         r=self.event();r['fields'].update(allDay=True,start='2026-09-16T00:00:00-07:00',end='2026-09-17T00:00:00-07:00');apple.validate(r)
         with self.assertRaises(ValueError):apple.validate({'op':'list','app':'calendar','calendar':'x','start':'2026-01-01T00:00:00Z','end':'2027-01-01T00:00:00Z'})
+
+    def test_compile_failure_reports_not_attempted_and_route_recovery(self):
+        with patch.object(sys, 'argv', ['apple.py']), patch.object(sys, 'stdin', io.StringIO('{"op":"connect","app":"calendar"}')), patch.object(sys, 'stdout', new_callable=io.StringIO) as out, patch.object(apple, 'build', side_effect=ValueError('SDK mismatch')), patch.object(apple.Path, 'mkdir'):
+            self.assertEqual(apple.main(), 1)
+        result=json.loads(out.getvalue())
+        self.assertEqual(result['state'],'not-attempted')
+        self.assertEqual(result['stage'],'prepare')
+        self.assertIn('app-control',result['recovery'])
 
 if __name__=='__main__': unittest.main()

@@ -1,8 +1,10 @@
 # Connect and recover
 
-Requirements: macOS 14+, Python 3, and a working Apple Swift compiler (Command Line Tools or Xcode). Run `python3 scripts/apple.py --build` from this skill directory. The helper caches a local binary under `~/Library/Caches/Steward/apple`; source changes trigger compilation. Notes uses the installed Notes scripting interface. No separate cloud service is required; existing Apple account synchronization still applies.
+Requirements: macOS 14+, Python 3, and a working Apple Swift compiler (Command Line Tools or Xcode). For Calendar/Reminders native helper access, run `python3 scripts/apple.py --build` from this skill directory. Notes does not require that compilation. The helper caches a local binary under `~/Library/Caches/Steward/apple`; source changes trigger compilation. Notes uses the installed Notes scripting interface. No separate cloud service is required; existing Apple account synchronization still applies.
 
 Send JSON on stdin to `python3 scripts/apple.py`. `{"op":"status"}` checks Calendar/Reminders authorization without prompting. `{"op":"connect","app":"calendar"}` requests Calendar access and lists containers. Repeat for `reminders` and `notes` when requested. macOS may show a permission prompt; follow the host's approval flow. If denied, explain the relevant Privacy & Security setting. The requester can appear under the host's name. Do not reset or edit privacy databases. Shell sandbox failures need the host's normal escalation mechanism.
+
+If compilation or permission fails, use the [connection recovery branch](../../steward-session/references/connections.md#recover-a-blocked-connection) to test an available supported route and retain the exact unresolved dependency. A successful app-control read is separate from the native helper’s build status.
 
 Connection returns IDs, names, sources, and available metadata. It does not imply verified write access. Save personal choices in memory, not in the skill repository. Read all calendars relevant to availability, separately from choosing a write target. Do not silently route all activity into a single default when the user wants topic-based calendars.
 

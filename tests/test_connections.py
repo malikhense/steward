@@ -52,7 +52,6 @@ class ConnectionsTests(unittest.TestCase):
     def test_ui_evidence_is_separate_from_connector_probe(self):
         v=connection.read(self.path);self.select(v,'mail','notes')
         with self.assertRaises(ValueError):connection.execute(self.args('probe',app='mail'),v)
-        with self.assertRaises(ValueError):connection.execute(self.args('record-ui',app='notes',access='verified',evidence='fake',next=None),v)
         a=self.args('record-ui',app='mail',access='verified',evidence='Synthetic test fixture: selected account message list readable',next=None)
         self.assertEqual(connection.execute(a,v)['verification'],'host-observation-recorded')
     def test_disconnect_clears_metadata_and_reselect_needs_recheck(self):
@@ -75,3 +74,14 @@ class ConnectionsTests(unittest.TestCase):
         connection.execute(self.args('select',apps=['mail'],context=True,scope='Different account'),v)
         self.assertEqual(v['apps']['mail']['access'],'unverified')
         self.assertIsNone(v['apps']['mail']['evidence'])
+
+    def test_native_ui_can_recover_a_blocked_calendar_without_certifying_writes(self):
+        v=connection.read(self.path);self.select(v,'calendar')
+        with patch.object(connection.subprocess,'run',return_value=subprocess.CompletedProcess([],1,'{"error":"Could not compile: SDK mismatch"}','')):
+            connection.execute(self.args('probe',app='calendar'),v)
+        result=connection.execute(self.args('record-ui',app='calendar',access='verified',evidence='Synthetic fixture: current week events readable in Calendar via host app control',next=None),v)
+        self.assertEqual(result['state'],'verified')
+        self.assertEqual(v['apps']['calendar']['route'],'app-control')
+        self.assertIn('SDK mismatch',v['apps']['calendar']['connectorFailure'])
+        self.assertEqual(v['apps']['calendar']['containers'],[])
+        self.assertEqual(result['writes'],'not-established-by-this-read')

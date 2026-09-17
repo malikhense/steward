@@ -30,7 +30,7 @@ Already installed? Say:
 
 In the app, type **@** and select **Steward**. In Codex CLI or the IDE extension, use **`$steward`**. You can also ask in plain language, as above. [Invocation guidance](https://learn.chatgpt.com/docs/build-skills)
 
-Steward checks what is already set up, helps you choose memory and optional app connections, then works on one useful request. You can skip the tour. A small task stays small.
+Steward walks you through setup, recommends Obsidian for a readable personal wiki, and connects the sources you choose. It then reviews that context and offers a few things it could help with. You can also start with an area of life and work toward a goal, a routine, or a more manageable week. You can skip the tour. A small task stays small.
 
 **Installing for the first time?** Send your AI agent the repository link and say:
 
