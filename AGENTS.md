@@ -11,3 +11,5 @@ Run `python3 scripts/check.py` after runtime edits. For substantive behavioral c
 Keep installation separate from source edits. Updating source does not authorize overwriting installed skills, publishing a release, or changing personal memory. Use the user's current explicit instructions and the host's action policy for those operations.
 
 Product naming: Steward is the product and every runtime skill uses steward or steward-*. A user may independently name their memory vault. Use “AI agent” in product copy and use commas, periods, or parentheses instead of em dashes.
+
+Public publishing: use the owner’s GitHub no-reply address for both author and committer metadata. Construct merge commits locally with that identity and inspect their metadata before pushing. GitHub-hosted merge operations can use the account email despite local Git configuration; do not use them without verified no-reply author control. Before publishing, inspect every new reachable commit, not just the tip.
