@@ -1,0 +1,4 @@
+interface:
+  display_name: "Steward"
+  short_description: "Make room for what matters. Take the next step."
+  default_prompt: "Use $steward to help me get started or pick up where I left off."

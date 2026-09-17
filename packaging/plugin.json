@@ -1,0 +1,20 @@
+{
+  "name": "steward",
+  "version": "0.2.2",
+  "description": "A little less to carry. Personal goals, useful next steps, and context you can return to.",
+  "author": {
+    "name": "malikhense"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Steward",
+    "shortDescription": "Make room for what matters. Take the next step.",
+    "longDescription": "Bring a goal, a loose end, or a week that needs untangling. Steward helps you check in, make progress, and adjust, with readable memory and optional Apple app context. You choose the connections and approve consequential actions.",
+    "developerName": "malikhense",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Use $steward to help me get started or pick up where I left off."
+  },
+  "repository": "https://github.com/malikhense/steward",
+  "license": "MIT"
+}

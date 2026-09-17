@@ -1,0 +1,16 @@
+# Local state and private memory
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+.obsidian/
+vault/
+vaults/
+private/
+local/
+work/
+backups/
+*.zip

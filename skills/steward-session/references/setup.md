@@ -1,0 +1,20 @@
+# Technical setup
+
+Use this branch when setup is requested or a missing capability blocks the selected task. Installation happens before an absent skill can run: the repository's Start here route uses the host skill installer. Once this entry is available, use [maintain](../../steward-maintain/SKILL.md) and its storage procedure for the actual memory work.
+
+1. **Discover existing state.** Inspect trusted workspace configuration and relevant installed sibling files. Resolve an existing configured vault before offering a new one. Check available filesystem/app capabilities within scope. Completion: reusable installation, store, and outstanding prerequisites are identified; no duplicate vault is created.
+2. **Choose memory only when unresolved.** Offer an existing compatible folder, a new plain Markdown folder, or a folder used with Obsidian. Ask for a location only if it cannot be inferred from an authorized project or user path. Offer a no-storage trial if access is unavailable or the user declines persistence. Completion: the user-selected store/mode is explicit; Obsidian is optional.
+3. **Prepare and connect.** For a new empty folder, use [the scaffolder](../scripts/setup_memory.py): inspect `--help`, preview with `--vault PATH`, then add `--apply` for authorized creation. The helper creates only missing starter files in an empty folder and refuses unrelated existing content. For an existing vault, inspect and adapt its conventions with maintain; preserve human notes and merge only the needed project instructions/index links. Connect the actual store to trusted workspace instructions so a fresh task can find it. Completion: files and the host's memory pointer agree. If a host cannot add its own project, give the exact remaining UI step while finishing independent preparation.
+4. **Verify.** Verify the installed siblings and their relative references, read the intended store, and perform/read back an authorized useful setup record. Test retrieval without relying on this conversation; report whether this was a new task test or a local retrieval check. Mark setup ready only for verified capabilities and save remaining limits. Completion: a usable store or an explicitly temporary no-storage session; onboarding remains a separate state.
+
+## Obsidian branch
+
+A Markdown folder can provide memory before any app is installed. If Obsidian is chosen, discover the actual app and CLI using the storage reference. With authorized app setup, register/open the exact folder using available native tools and verify it. If installation, unlock, authentication, or another manual step is required, state the concrete step and continue file-based work. Record file readiness separately from pending Obsidian integration. Never claim sync, backup, app registration, or CLI support merely because files exist.
+
+## Interrupted setup
+
+Read existing files and saved state before repeating a step. The scaffolder can recognize a complete scaffold but is not a repair or migration tool. A partial scaffold must be inspected and completed through maintain; do not reset or erase it. Preserve independently finished work and record the exact remaining step.
+
+## Choose optional context connections
+
+After memory is usable, offer [connection onboarding](connections.md), even if the user did not know to request integrations. Reuse existing choices and access evidence. Explain what the selected sources help with, verify access separately from write capability, and preserve skipped/pending states. Optional access never blocks unrelated first-use work. Onboarding completion requires this choice to be offered or explicitly skipped, not every app to connect.
